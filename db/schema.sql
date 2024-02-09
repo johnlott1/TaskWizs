@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS taskwiz;
+CREATE DATABASE taskwiz;
