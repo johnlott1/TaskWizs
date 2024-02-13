@@ -1,38 +1,17 @@
-const router = require('express').Router();
-const { Task } = require('../../models');
-const withAuth = require('../../utils/auth');
+const express = require("express");
+const router = express.Router();
 
-router.post('/', withAuth, async (req, res) => {
-  try {
-    const newTask = await Task.create({
-      ...req.body,
-      user_id: req.session.user_id,
-    });
+// import route handlers for different routes
+const home = require("./home");
+const users = require("./UserRouter");
+const tasks = require("./taskRouter");
+const auth = require("./authRouter");
+const { authenticator } = require("../middleware/auth");
 
-    res.status(200).json(newTask);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
-
-router.delete('/:id', withAuth, async (req, res) => {
-  try {
-    const TaskData = await Task.destroy({
-      where: {
-        id: req.params.id,
-        user_id: req.session.user_id,
-      },
-    });
-
-    if (!TaskData) {
-      res.status(404).json({ message: 'No Task found with this id!' });
-      return;
-    }
-
-    res.status(200).json(TaskData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// define route handling for different paths using middleware
+router.use("/tasks", authenticator, tasks); // route for tasks with authentication
+router.use("/users", users); // route for users
+router.use("/auth", auth); // route for authentication
+router.use("/", authenticator, home); // default route with authentication
 
 module.exports = router;

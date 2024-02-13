@@ -1,22 +1,26 @@
 module.exports = {
-    format_date: (date) => {
-      // Format date as MM/DD/YYYY
-      return date.toLocaleDateString();
+    createTask: (e) => {
+      // handle click event for creating a task
     },
-    format_amount: (amount) => {
-      // format large numbers with commas
-      return parseInt(amount).toLocaleString();
+    handleKeyPress: (e) => {
+      // handle keypress event that allows task to be created on 'enter'
     },
-    get_emoji: () => {
-      const randomNum = Math.random();
-  
-      // Return a random emoji
-      if (randomNum > 0.7) {
-        return `<span for="img" aria-label="lightbulb">💡</span>`;
-      } else if (randomNum > 0.4) {
-        return `<span for="img" aria-label="laptop">💻</span>`;
-      } else {
-        return `<span for="img" aria-label="gear">⚙️</span>`;
-      }
+    completeTask: (e) => {
+      // handle click event to change state of task to completed
+    },
+    deleteTask: (e) => {
+      // handle click event for deleting uncompleted events
+    },
+    deleteCompletedTask: (e) => {
+      // handle click event for completed events that bypasses the confirm
+    },
+    loadEditTaskPage: (e) => {
+      // handle click event to load the edit task page
+    },
+    submitEditTask: (e) => {
+      // handle click event to submit the edit to the back end
+    },
+    handleEditKeyPress: (e) => {
+      // handle keypress event that allows task to be edited on 'enter'
     },
   };
